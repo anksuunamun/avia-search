@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Segment.module.css';
 import {FlightType} from '../../App';
-import {addZero} from '../../utils/helper-functions';
+import {addZero, formatDuration} from '../../utils/helper-functions';
 
 
 const Segment: React.FC<FlightType> = (props) => {
@@ -28,7 +28,7 @@ const Segment: React.FC<FlightType> = (props) => {
                     <span>{`${addZero(depDate.getHours())}:${addZero(depDate.getMinutes())}`} </span>
                     <span>{depDateStr}</span>
                 </div>
-                <div>&#9719; </div>
+                <div>&#9719; {formatDuration(props.duration)}</div>
                 <div>
                     <span>{arrDateStr} </span>
                     <span>{`${addZero(new Date(props.arrivalDate).getHours())}:${addZero(new Date(props.arrivalDate).getMinutes())}`} </span>
