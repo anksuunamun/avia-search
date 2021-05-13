@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
 import Flight from './Flight/Flight';
-import Filters from './Filters/Filters';
+import Filters from './components/Filters/Filters';
 import {getFlights} from './DAL/flights';
+import {sortByPriceAscending, sortByPriceDescending} from './utils/sort';
 
 export type FlightType = {
     airline: { uid: string, caption: string, airlineCode: string }
@@ -25,7 +26,7 @@ export type FlightsType = {
 
 function App() {
 
-    const [flights, setFlights] = useState<Array<FlightsType>>()
+    const [flights, setFlights] = useState<Array<FlightsType>>([])
 
     useEffect(() => {
         const flights = getFlights()
@@ -34,6 +35,15 @@ function App() {
 
     const flightsItems = flights?.map(item => <Flight {...item} />)
 
+    const sortByPriceDescendingHandler = () => {
+        console.log('bla')
+        setFlights(sortByPriceDescending(flights));
+    }
+    const sortByPriceAscendingHandler = () => {
+        console.log('bla')
+        setFlights(sortByPriceAscending(flights));
+    }
+
     if (!flights) {
         return <div>Loading...</div>
     }
@@ -41,7 +51,8 @@ function App() {
     return (
         <div className="App">
             <div>
-                <Filters/>
+                <Filters sortByPriceDescendingHandler={sortByPriceDescendingHandler}
+                         sortByPriceAscendingHandler={sortByPriceAscendingHandler}/>
             </div>
             <div>
                 {flightsItems}

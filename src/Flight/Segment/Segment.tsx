@@ -1,15 +1,14 @@
 import React from 'react';
 import styles from './Segment.module.css';
 import {FlightType} from '../../App';
+import {addZero} from '../../utils/helper-functions';
 
 
 const Segment: React.FC<FlightType> = (props) => {
     if (!props.departureCity) {
         return <div>Loading...</div>
     }
-    const addZero = (time: number) => {
-        return time < 10 ? `0${time}` : time;
-    }
+
 
     let depDate = new Date(props.departureDate)
     let depDateStr = `${depDate.getDate()} ${Intl.DateTimeFormat('ru', {month: 'short'}).format(depDate)} ${Intl.DateTimeFormat('ru', {weekday: 'short'}).format(depDate)}`
