@@ -18,3 +18,7 @@ export const filterByStopsCount = (flights: Array<FlightsType>, stopsCount: numb
         return stops === stopsCount;
     })
 }
+
+export const filterByMinMaxPrice = (flights: Array<FlightsType>, min: number, max: number) => {
+    let result = flights.filter(flight => (+flight.price >= min && +flight.price <= max))
+}
