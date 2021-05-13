@@ -18,3 +18,9 @@ export const formatDuration = (duration: number) => {
 }
 
 export const generateStops = () => Math.random() > 0.5 ? 1 : 0
+
+export const getAirlinesNames = (flights: Array<FlightsType>) => {
+    let names: Array<string> = [];
+    flights.map(flight => !names.includes(flight.flightCaption) && names.push(flight.flightCaption));
+    return names;
+}
