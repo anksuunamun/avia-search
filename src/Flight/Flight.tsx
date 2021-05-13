@@ -20,7 +20,9 @@ const Flight: React.FC<FlightsType> = (props) => {
                 </div>
             </div>
             <div className={styles.flight_segments}>
-                {segments}
+                {segments[0]}
+                <div className={styles.blueLine}/>
+                {segments[1]}
             </div>
             <button>ВЫБРАТЬ</button>
         </div>
