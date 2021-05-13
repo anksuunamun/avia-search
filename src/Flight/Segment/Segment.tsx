@@ -7,6 +7,16 @@ const Segment: React.FC<FlightType> = (props) => {
     if (!props.departureCity) {
         return <div>Loading...</div>
     }
+    const addZero = (time: number) => {
+        return time < 10 ? `0${time}` : time;
+    }
+
+    let depDate = new Date(props.departureDate)
+    let depDateStr = `${depDate.getDate()} ${Intl.DateTimeFormat('ru', {month: 'short'}).format(depDate)} ${Intl.DateTimeFormat('ru', {weekday: 'short'}).format(depDate)}`
+
+    let arrDate = new Date(props.arrivalDate)
+    let arrDateStr = `${arrDate.getDate()} ${Intl.DateTimeFormat('ru', {month: 'short'}).format(arrDate)} ${Intl.DateTimeFormat('ru', {weekday: 'short'}).format(arrDate)}`
+
     return (
         <div className={styles.segment}>
             <div className={styles.segment_header}>{props.departureCity.caption}, {props.departureAirport.caption}
@@ -16,15 +26,19 @@ const Segment: React.FC<FlightType> = (props) => {
             <div className={styles.greyLine}/>
             <div className={styles.segment_dates}>
                 <div>
-                    <span>{`${new Date(props.departureDate).getHours()}:${new Date(props.departureDate).getMinutes()}`}</span>
+                    <span>{`${addZero(depDate.getHours())}:${addZero(depDate.getMinutes())}`} </span>
+                    <span>{depDateStr}</span>
                 </div>
-                <div>duration</div>
+                <div>&#9719; </div>
                 <div>
-                    {props.arrivalDate}
+                    <span>{arrDateStr} </span>
+                    <span>{`${addZero(new Date(props.arrivalDate).getHours())}:${addZero(new Date(props.arrivalDate).getMinutes())}`} </span>
                 </div>
             </div>
-            <div>
-                {props.stops ? props.stops + ' пересадка' : props.stops + ' пересадок'}
+            <div className={styles.segment_stops}>
+                <div className={styles.boldGreyLine}/>
+                <span>{props.stops ? props.stops + ' пересадка' : props.stops + ' пересадок'}</span>
+                <div className={styles.boldGreyLine}/>
             </div>
             <div>Рейс выполняет: {props.airline.caption}</div>
         </div>
