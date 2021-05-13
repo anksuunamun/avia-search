@@ -1,14 +1,24 @@
 import React from 'react';
 import styles from './Filters.module.css';
 
-const Filters: React.FC<any> = (props) => {
+type FiltersPropsType = {
+    sortByPriceDescendingHandler: () => void
+    sortByPriceAscendingHandler: () => void
+}
+
+const Filters: React.FC<FiltersPropsType> = (props) => {
     return (
         <div className={styles.filtersWrapper}>
             <div className={styles.grayBlock}/>
             <div className={styles.filterBlock}>
                 <h4>Сортировать</h4>
-                <label htmlFor="filter1'"><input type="radio" id={'filter1'}/> - по возрастанию цены</label>
-                <label htmlFor="filter2"><input type="radio" id={'filter2'}/> - по убыванию цены</label>
+                <label htmlFor="filter1'"><input type="radio"
+                                                 id={'filter1'}
+                                                 onClick={() => props.sortByPriceDescendingHandler()}/> - по возрастанию
+                    цены</label>
+                <label htmlFor="filter2"><input type="radio"
+                                                id={'filter2'}
+                                                onClick={() => props.sortByPriceAscendingHandler()}/> - по убыванию цены</label>
                 <label htmlFor="filter3"><input type="radio" id={'filter3'}/> - по времени в пути</label>
             </div>
             <div className={styles.filterBlock}>
