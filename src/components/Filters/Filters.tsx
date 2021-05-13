@@ -39,8 +39,8 @@ const Filters: React.FC<FiltersPropsType> = (props) => {
             </div>
             <div className={styles.filterBlock}>
                 <h4>Цена</h4>
-                <label htmlFor="filter6">От <input type="text" defaultValue={0} id={'filter6'}/></label>
-                <label htmlFor="filter7">До <input type="text" defaultValue={10000} id={'filter7'}/></label>
+                <label htmlFor="filter6">От <input type="number" defaultValue={0} id={'filter6'}/></label>
+                <label htmlFor="filter7">До <input type="number" defaultValue={10000} id={'filter7'}/></label>
             </div>
             <div className={styles.filterBlock}>
                 <h4>Авиакомпании</h4>
