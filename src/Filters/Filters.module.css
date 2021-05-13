@@ -2,3 +2,12 @@
     display: flex;
     flex-direction: column;
 }
+
+.grayBlock {
+    width: 100%;
+    background-color: lightgrey;
+    height: 40px;
+}
+.filtersWrapper {
+
+}
