@@ -17,6 +17,7 @@ export const getFlights = () => {
                 arrivalAirport: segment.arrivalAirport,
                 arrivalDate: segment.arrivalDate,
                 stops: segment.stops,
+                duration: leg.duration,
                 key: v1()
             }
         })

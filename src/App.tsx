@@ -15,6 +15,7 @@ export type FlightType = {
     departureDate: string
     key: string
     stops: number
+    duration: number
 }
 
 export type FlightsType = {
