@@ -1,0 +1,4 @@
+.filterBlock {
+    display: flex;
+    flex-direction: column;
+}
