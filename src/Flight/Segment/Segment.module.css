@@ -1,0 +1,47 @@
+.segment {
+    padding: 0 20px;
+}
+
+.segment_header {
+    margin-top: 15px;
+}
+
+.segment_header span {
+    color: #75BBFD;
+}
+
+
+.segment_dates {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+.segment_dates div:first-child span:nth-child(2),
+.segment_dates div:nth-child(3) span:first-child {
+    color: #75BBFD;
+}
+
+.greyLine {
+    height: 1px;
+    width: 100%;
+    background-color: lightgrey;
+    margin: 10px 0;
+}
+
+.segment_stops {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px 10px;
+}
+
+.segment_stops span {
+    color: #fdb475;
+}
+
+.boldGreyLine {
+    height: 2px;
+    width: 320px;
+    background-color: lightgrey;
+}
