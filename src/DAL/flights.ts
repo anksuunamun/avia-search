@@ -1,6 +1,7 @@
 import {v1} from 'uuid';
 // @ts-ignore
 import data from './flights.json';
+import {generateStops} from '../utils/helper-functions';
 
 
 export const getFlights = () => {
@@ -16,7 +17,7 @@ export const getFlights = () => {
                 arrivalCity: segment.arrivalCity,
                 arrivalAirport: segment.arrivalAirport,
                 arrivalDate: segment.arrivalDate,
-                stops: segment.stops,
+                stops: generateStops(),
                 duration: leg.duration,
                 key: v1()
             }

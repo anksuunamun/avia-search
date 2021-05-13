@@ -16,3 +16,5 @@ export const formatDuration = (duration: number) => {
     minutes && result.push(`${minutes} мин`);
     return result.join(' ');
 }
+
+export const generateStops = () => Math.random() > 0.5 ? 1 : 0
