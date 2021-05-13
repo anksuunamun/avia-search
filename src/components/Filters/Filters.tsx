@@ -4,6 +4,7 @@ import styles from './Filters.module.css';
 type FiltersPropsType = {
     sortByPriceDescendingHandler: () => void
     sortByPriceAscendingHandler: () => void
+    sortByTravelTimeHandler: () => void
 }
 
 const Filters: React.FC<FiltersPropsType> = (props) => {
@@ -19,7 +20,10 @@ const Filters: React.FC<FiltersPropsType> = (props) => {
                 <label htmlFor="filter2"><input type="radio"
                                                 id={'filter2'}
                                                 onClick={() => props.sortByPriceAscendingHandler()}/> - по убыванию цены</label>
-                <label htmlFor="filter3"><input type="radio" id={'filter3'}/> - по времени в пути</label>
+                <label htmlFor="filter3"><input type="radio"
+                                                id={'filter3'}
+                                                onClick={() => props.sortByTravelTimeHandler()}/> - по времени в
+                    пути</label>
             </div>
             <div className={styles.filterBlock}>
                 <h4>Фильтровать</h4>
