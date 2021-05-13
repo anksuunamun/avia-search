@@ -11,3 +11,10 @@ export const sortByPriceAscending = (flights: Array<FlightsType>) => {
 export const sortByTravelTime = (flights: Array<FlightsType>) => {
     return [...flights].sort((flight1, flight2) => getFlightDuration(flight1) - getFlightDuration(flight2))
 }
+
+export const filterByStopsCount = (flights: Array<FlightsType>, stopsCount: number) => {
+    return [...flights].filter(flight => {
+        let stops = flight.routes.reduce((acc, current) => Math.max(acc, current.stops), 0)
+        return stops === stopsCount;
+    })
+}

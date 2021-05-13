@@ -5,6 +5,7 @@ type FiltersPropsType = {
     sortByPriceDescendingHandler: () => void
     sortByPriceAscendingHandler: () => void
     sortByTravelTimeHandler: () => void
+    filterByStopsCountHandler: (stops: number) => void
 }
 
 const Filters: React.FC<FiltersPropsType> = (props) => {
@@ -27,8 +28,14 @@ const Filters: React.FC<FiltersPropsType> = (props) => {
             </div>
             <div className={styles.filterBlock}>
                 <h4>Фильтровать</h4>
-                <label htmlFor="filter4"><input type="checkbox" id={'filter4'}/> - 1 пересадка</label>
-                <label htmlFor="filter5"><input type="checkbox" id={'filter5'}/> - без пересадок</label>
+                <label htmlFor="filter4"><input type="checkbox"
+                                                id={'filter4'}
+                                                onClick={() => props.filterByStopsCountHandler(1)}/> - 1
+                    пересадка</label>
+                <label htmlFor="filter5"><input type="checkbox"
+                                                id={'filter5'}
+                                                onClick={() => props.filterByStopsCountHandler(0)}/> - без
+                    пересадок</label>
             </div>
             <div className={styles.filterBlock}>
                 <h4>Цена</h4>

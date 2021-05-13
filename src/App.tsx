@@ -3,7 +3,12 @@ import './App.css';
 import Flight from './Flight/Flight';
 import Filters from './components/Filters/Filters';
 import {getFlights} from './DAL/flights';
-import {sortByPriceAscending, sortByPriceDescending, sortByTravelTime} from './utils/sort';
+import {
+    filterByStopsCount,
+    sortByPriceAscending,
+    sortByPriceDescending,
+    sortByTravelTime
+} from './utils/sorts-and-filters';
 
 export type FlightType = {
     airline: { uid: string, caption: string, airlineCode: string }
@@ -46,6 +51,9 @@ function App() {
     const sortByTravelTimeHandler = () => {
         setFlights(sortByTravelTime(flights));
     }
+    const filterByStopsCountHandler = (stopsCount: number) => {
+        setFlights(filterByStopsCount(flights, stopsCount));
+    }
 
     if (!flights) {
         return <div>Loading...</div>
@@ -56,7 +64,8 @@ function App() {
             <div>
                 <Filters sortByPriceDescendingHandler={sortByPriceDescendingHandler}
                          sortByPriceAscendingHandler={sortByPriceAscendingHandler}
-                         sortByTravelTimeHandler={sortByTravelTimeHandler}/>
+                         sortByTravelTimeHandler={sortByTravelTimeHandler}
+                         filterByStopsCountHandler={filterByStopsCountHandler}/>
             </div>
             <div>
                 {flightsItems}
