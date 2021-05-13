@@ -36,11 +36,9 @@ function App() {
     const flightsItems = flights?.map(item => <Flight {...item} />)
 
     const sortByPriceDescendingHandler = () => {
-        console.log('bla')
         setFlights(sortByPriceDescending(flights));
     }
     const sortByPriceAscendingHandler = () => {
-        console.log('bla')
         setFlights(sortByPriceAscending(flights));
     }
 
