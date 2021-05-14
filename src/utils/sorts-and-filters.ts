@@ -1,4 +1,4 @@
-import {FlightsType} from '../App';
+import {CurrentSortType, FlightsType} from '../App';
 import {getFlightDuration} from './helper-functions';
 
 export const sortByPriceDescending = (flights: Array<FlightsType>) => {
@@ -31,6 +31,13 @@ export const getFilteredFlights = (flights: Array<FlightsType>, stopsCount: numb
         let stopsFilterResult = stopsCount.some(stop => stop === stops)
         return stopsFilterResult && rangeFilterResult
     }), companies)
+}
+
+export const getSortedFlights = (flights: Array<FlightsType>, sortType: CurrentSortType) => {
+    if (sortType === 'priceAscending') return sortByPriceAscending(flights);
+    if (sortType === 'priceDescending') return sortByPriceDescending(flights);
+    if (sortType === 'travelTime') return sortByTravelTime(flights);
+    return flights;
 }
 
 // let flights = [{flightCaption: "LOT Polish Airlines",
