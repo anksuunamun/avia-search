@@ -4,11 +4,8 @@ import Flight from './Flight/Flight';
 import Filters from './components/Filters/Filters';
 import {getFlights} from './dal/flights';
 import {
-    filterByCompanyName,
-    filterByStopsCount,
+    filterByCompanyName, getFilteredFlights, getSortedFlights,
     sortByPriceAscending,
-    sortByPriceDescending,
-    sortByTravelTime
 } from './utils/sorts-and-filters';
 import {getAirlinesNames} from './utils/helper-functions';
 
