@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import styles from './Filters.module.css';
 import {v1} from 'uuid';
 import {CurrentSortType} from '../../App';
@@ -13,6 +13,10 @@ type FiltersPropsType = {
     currentSort: CurrentSortType
     onCurrentSortHandler: (value: CurrentSortType) => void
     stopsCount: number[]
+    min: number
+    max: number
+    setHighPriceBorderHandler: (value: number) => void
+    setLowPriceBorderHandler: (value: number) => void
 }
 
 const Filters: React.FC<FiltersPropsType> = (props) => {
@@ -27,6 +31,13 @@ const Filters: React.FC<FiltersPropsType> = (props) => {
             </label>
         )
     })
+
+    const onMinChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        props.setLowPriceBorderHandler(+event.currentTarget.value)
+    }
+    const onMaxChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        props.setHighPriceBorderHandler(+event.currentTarget.value)
+    }
 
     return (
         <div className={styles.filtersWrapper}>
@@ -61,8 +72,14 @@ const Filters: React.FC<FiltersPropsType> = (props) => {
             </div>
             <div className={styles.filterBlock}>
                 <h4>Цена</h4>
-                <label htmlFor="filter6">От <input type="number" defaultValue={0} id={'filter6'}/></label>
-                <label htmlFor="filter7">До <input type="number" defaultValue={10000} id={'filter7'}/></label>
+                <label htmlFor="filter6">От <input type="number"
+                                                   value={props.min}
+                                                   onChange={onMinChangeHandler}
+                                                   id={'filter6'}/></label>
+                <label htmlFor="filter7">До <input type="number"
+                                                   value={props.max}
+                                                   onChange={onMaxChangeHandler}
+                                                   id={'filter7'}/></label>
             </div>
             <div className={styles.filterBlock}>
                 <h4>Авиакомпании</h4>

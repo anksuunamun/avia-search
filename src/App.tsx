@@ -37,7 +37,8 @@ function App() {
     const [airlines, setAirlines] = useState<Array<string>>([]);
 
     const [currentSort, setCurrentSort] = useState<CurrentSortType>('priceAscending');
-    const [minMax, setMinMax] = useState<number[]>([0, 1000000]);
+    const [min, setMin] = useState<number>(0);
+    const [max, setMax] = useState<number>(1000000);
     const [stopsCount, setStopsCount] = useState<number[]>([0, 1]);
 
     const [flightsForRender, setFlightsForRender] = useState<Array<FlightsType>>([]);
@@ -45,17 +46,18 @@ function App() {
     useEffect(() => {
         const flights = getFlights()
         setFlights(flights);
-        setFlightsForRender(sortByPriceAscending(getFilteredFlights(flights, stopsCount, minMax[0], minMax[1], [])));
+        setFlightsForRender(sortByPriceAscending(getFilteredFlights(flights, stopsCount, min, max, [])));
         setAirlines(getAirlinesNames(flights));
     }, [])
 
     let flightsItems = useMemo(() => flightsForRender.map(item => <Flight {...item} />), [flightsForRender])
 
     useEffect(() => {
-        flights.length !== 0 && setFlightsForRender(getSortedFlights((getFilteredFlights(flights, stopsCount, minMax[0], minMax[1], [])), currentSort))
-    }, [stopsCount, currentSort, minMax])
+        flights.length !== 0 && setFlightsForRender(getSortedFlights((getFilteredFlights(flights, stopsCount, min, max, [])), currentSort))
+    }, [stopsCount, currentSort, min, max])
 
     console.log(flightsForRender)
+
 
     const sortByPriceDescendingHandler = () => {
         setCurrentSort('priceDescending');
@@ -66,6 +68,8 @@ function App() {
     const sortByTravelTimeHandler = () => {
         setCurrentSort('travelTime');
     }
+
+
     const filterByStopsCountHandler = (stops: number) => {
         if (stopsCount.some(stop => stop === stops)) {
             setStopsCount(stopsCount.filter(s => s !== stops))
@@ -76,6 +80,13 @@ function App() {
     const filterByCompanyNameHandler = (airLine: string) => {
         setFlightsForRender(filterByCompanyName(flights, [airLine]));
     }
+    const setLowPriceBorderHandler = (min: number) => {
+        setMin(min);
+    }
+    const setHighPriceBorderHandler = (max: number) => {
+        setMax(max);
+    }
+
     const onCurrentSortHandler = (value: CurrentSortType) => {
         setCurrentSort(value);
     }
@@ -96,7 +107,11 @@ function App() {
                          airlinesNames={airlines}
                          currentSort={currentSort}
                          onCurrentSortHandler={onCurrentSortHandler}
-                         stopsCount={stopsCount}/>
+                         stopsCount={stopsCount}
+                         min={min}
+                         max={max}
+                         setLowPriceBorderHandler={setLowPriceBorderHandler}
+                         setHighPriceBorderHandler={setHighPriceBorderHandler}/>
             </div>
             <div>
                 {flightsItems}
