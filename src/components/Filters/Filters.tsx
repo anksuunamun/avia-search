@@ -8,25 +8,42 @@ type FiltersPropsType = {
     sortByPriceAscendingHandler: () => void
     sortByTravelTimeHandler: () => void
     filterByStopsCountHandler: (stops: number) => void
+    filterByCompanyName: (airLine: string) => void
+    airlinesNames: string[]
+    currentSort: CurrentSortType
+    onCurrentSortHandler: (value: CurrentSortType) => void
 }
 
 const Filters: React.FC<FiltersPropsType> = (props) => {
+
+    const airlinesFilters = props.airlinesNames.map(name => {
+        const id = v1();
+        return (
+            <label htmlFor={id} key={id}>
+                <input type="checkbox"
+                       id={id}
+                       onClick={() => props.filterByCompanyName(name)}/> - {name}
+            </label>
+        )
+    })
+
     return (
         <div className={styles.filtersWrapper}>
             <div className={styles.grayBlock}/>
             <div className={styles.filterBlock}>
                 <h4>Сортировать</h4>
-                <label htmlFor="filter1'"><input type="radio"
-                                                 id={'filter1'}
-                                                 onClick={() => props.sortByPriceDescendingHandler()}/> - по возрастанию
-                    цены</label>
-                <label htmlFor="filter2"><input type="radio"
-                                                id={'filter2'}
-                                                onClick={() => props.sortByPriceAscendingHandler()}/> - по убыванию цены</label>
-                <label htmlFor="filter3"><input type="radio"
-                                                id={'filter3'}
-                                                onClick={() => props.sortByTravelTimeHandler()}/> - по времени в
-                    пути</label>
+                <SortFilter onChange={props.sortByPriceAscendingHandler}
+                            id={'priceAscending'}
+                            text={' - по возрастанию цены'}
+                            currentSort={props.currentSort}/>
+                <SortFilter onChange={props.sortByPriceDescendingHandler}
+                            id={'priceDescending'}
+                            text={' - по убыванию цены'}
+                            currentSort={props.currentSort}/>
+                <SortFilter onChange={props.sortByTravelTimeHandler}
+                            id={'travelTime'}
+                            text={' - по времени в пути'}
+                            currentSort={props.currentSort}/>
             </div>
             <div className={styles.filterBlock}>
                 <h4>Фильтровать</h4>
@@ -46,8 +63,7 @@ const Filters: React.FC<FiltersPropsType> = (props) => {
             </div>
             <div className={styles.filterBlock}>
                 <h4>Авиакомпании</h4>
-                <label htmlFor="filter8"><input type="checkbox" id={'filter8'}/> - LOT Polish Airlines</label>
-                <label htmlFor="filter9"><input type="checkbox" id={'filter9'}/> - Аэрофлот - росс...</label>
+                {airlinesFilters}
             </div>
             <div className={styles.grayBlock}/>
         </div>
