@@ -38,13 +38,14 @@ function App() {
     let airLinesNames = useMemo(() => getAirlinesNames(flights), [flights]);
 
     const [airlines, setAirlines] = useState<Array<string>>(airLinesNames);
-
     const [currentSort, setCurrentSort] = useState<CurrentSortType>('priceAscending');
     const [min, setMin] = useState<number>(0);
     const [max, setMax] = useState<number>(1000000);
     const [stopsCount, setStopsCount] = useState<number[]>([0, 1]);
 
     const [flightsForRender, setFlightsForRender] = useState<Array<FlightsType>>([]);
+
+    const [disabledAirlines, setDisabledAirlines] = useState<string[]>([])
 
     useEffect(() => {
         const flights = getFlights()
@@ -58,6 +59,10 @@ function App() {
     useEffect(() => {
         flights.length !== 0 && setFlightsForRender(getSortedFlights((getFilteredFlights(flights, stopsCount, min, max, airlines)), currentSort))
     }, [stopsCount, currentSort, min, max, airlines])
+
+    useEffect(() => {
+        setDisabledAirlines(airLinesNames.filter(name => !getAirlinesNames(flightsForRender).includes(name)));
+    }, [flightsForRender])
 
     const sortByPriceDescendingHandler = () => {
         setCurrentSort('priceDescending');
@@ -114,7 +119,8 @@ function App() {
                          max={max}
                          setLowPriceBorderHandler={setLowPriceBorderHandler}
                          setHighPriceBorderHandler={setHighPriceBorderHandler}
-                         airlines={airlines}/>
+                         airlines={airlines}
+                         disabledAirlines={disabledAirlines}/>
             </div>
             <div>
                 {flightsItems}
