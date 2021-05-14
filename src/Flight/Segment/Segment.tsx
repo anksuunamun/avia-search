@@ -9,7 +9,6 @@ const Segment: React.FC<FlightType> = (props) => {
         return <div>Loading...</div>
     }
 
-
     let depDate = new Date(props.departureDate)
     let depDateStr = `${depDate.getDate()} ${Intl.DateTimeFormat('ru', {month: 'short'}).format(depDate)} ${Intl.DateTimeFormat('ru', {weekday: 'short'}).format(depDate)}`
 

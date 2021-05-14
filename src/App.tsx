@@ -61,8 +61,9 @@ function App() {
     }, [stopsCount, currentSort, min, max, airlines])
 
     useEffect(() => {
-        setDisabledAirlines(airLinesNames.filter(name => !getAirlinesNames(flightsForRender).includes(name)));
-    }, [flightsForRender])
+        let fl = getSortedFlights((getFilteredFlights(flights, stopsCount, min, max, [])), currentSort)
+        setDisabledAirlines(airLinesNames.filter(name => !getAirlinesNames(fl).includes(name)));
+    }, [stopsCount, currentSort, min, max])
 
     const sortByPriceDescendingHandler = () => {
         setCurrentSort('priceDescending');
