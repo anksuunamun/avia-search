@@ -4,7 +4,7 @@ import Flight from './Flight/Flight';
 import Filters from './components/Filters/Filters';
 import {getFlights} from './dal/flights';
 import {
-    filterByCompanyName, getFilteredFlights, getSortedFlights,
+    getFilteredFlights, getSortedFlights,
     sortByPriceAscending,
 } from './utils/sorts-and-filters';
 import {getAirlinesNames} from './utils/helper-functions';
@@ -59,9 +59,6 @@ function App() {
         flights.length !== 0 && setFlightsForRender(getSortedFlights((getFilteredFlights(flights, stopsCount, min, max, airlines)), currentSort))
     }, [stopsCount, currentSort, min, max, airlines])
 
-    console.log(flightsForRender)
-
-
     const sortByPriceDescendingHandler = () => {
         setCurrentSort('priceDescending');
     }
@@ -71,7 +68,6 @@ function App() {
     const sortByTravelTimeHandler = () => {
         setCurrentSort('travelTime');
     }
-
 
     const filterByStopsCountHandler = (stops: number) => {
         if (stopsCount.some(stop => stop === stops)) {
@@ -97,7 +93,6 @@ function App() {
     const onCurrentSortHandler = (value: CurrentSortType) => {
         setCurrentSort(value);
     }
-
 
     if (flights.length === 0 && flightsForRender.length === 0) {
         return <div>Loading...</div>
