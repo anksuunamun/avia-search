@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import './App.css';
 import Flight from './Flight/Flight';
 import Filters from './components/Filters/Filters';
@@ -40,33 +40,41 @@ function App() {
     const [airlines, setAirlines] = useState<Array<string>>([]);
 
     const [currentSort, setCurrentSort] = useState<CurrentSortType>('priceAscending');
+    const [minMax, setMinMax] = useState<number[]>([0, 1000000]);
+    const [stopsCount, setStopsCount] = useState<number[]>([0, 1]);
 
     const [flightsForRender, setFlightsForRender] = useState<Array<FlightsType>>([]);
 
     useEffect(() => {
         const flights = getFlights()
         setFlights(flights);
-        setFlightsForRender(sortByPriceAscending(flights));
+        setFlightsForRender(sortByPriceAscending(getFilteredFlights(flights, stopsCount, minMax[0], minMax[1], [])));
         setAirlines(getAirlinesNames(flights));
     }, [])
 
+    let flightsItems = useMemo(() => flightsForRender.map(item => <Flight {...item} />), [flightsForRender])
 
-    const flightsItems = flightsForRender?.map(item => <Flight {...item} />)
+    useEffect(() => {
+        flights.length !== 0 && setFlightsForRender(getSortedFlights((getFilteredFlights(flights, stopsCount, minMax[0], minMax[1], [])), currentSort))
+    }, [stopsCount, currentSort, minMax])
+
+    console.log(flightsForRender)
 
     const sortByPriceDescendingHandler = () => {
         setCurrentSort('priceDescending');
-        setFlightsForRender(sortByPriceDescending(flights));
     }
     const sortByPriceAscendingHandler = () => {
-        setCurrentSort('priceAscending')
-        setFlightsForRender(sortByPriceAscending(flights));
+        setCurrentSort('priceAscending');
     }
     const sortByTravelTimeHandler = () => {
         setCurrentSort('travelTime');
-        setFlightsForRender(sortByTravelTime(flights));
     }
-    const filterByStopsCountHandler = (stopsCount: number) => {
-        setFlightsForRender(filterByStopsCount(flights, stopsCount));
+    const filterByStopsCountHandler = (stops: number) => {
+        if (stopsCount.some(stop => stop === stops)) {
+            setStopsCount(stopsCount.filter(s => s !== stops))
+        } else {
+            setStopsCount([...stopsCount, stops])
+        }
     }
     const filterByCompanyNameHandler = (airLine: string) => {
         setFlightsForRender(filterByCompanyName(flights, [airLine]));
@@ -76,7 +84,7 @@ function App() {
     }
 
 
-    if (!flights) {
+    if (flights.length === 0 && flightsForRender.length === 0) {
         return <div>Loading...</div>
     }
 
@@ -90,7 +98,8 @@ function App() {
                          filterByCompanyName={filterByCompanyNameHandler}
                          airlinesNames={airlines}
                          currentSort={currentSort}
-                         onCurrentSortHandler={onCurrentSortHandler}/>
+                         onCurrentSortHandler={onCurrentSortHandler}
+                         stopsCount={stopsCount}/>
             </div>
             <div>
                 {flightsItems}
