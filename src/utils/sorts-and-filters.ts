@@ -28,7 +28,8 @@ export const getFilteredFlights = (flights: Array<FlightsType>, stopsCount: numb
     return filterByCompanyName(flights.filter(flight => {
         let stops = flight.routes.reduce((acc, current) => Math.max(acc, current.stops), 0);
         let rangeFilterResult = (+flight.price >= min && +flight.price <= max);
-        return (stopsCount.length > 0 ? (stops <= stopsCount[0] || stops <= stopsCount[1]) : (stops <= stopsCount[0])) && rangeFilterResult
+        let stopsFilterResult = stopsCount.some(stop => stop === stops)
+        return stopsFilterResult && rangeFilterResult
     }), companies)
 }
 
