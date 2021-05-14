@@ -12,6 +12,7 @@ type FiltersPropsType = {
     airlinesNames: string[]
     currentSort: CurrentSortType
     onCurrentSortHandler: (value: CurrentSortType) => void
+    stopsCount: number[]
 }
 
 const Filters: React.FC<FiltersPropsType> = (props) => {
@@ -47,13 +48,15 @@ const Filters: React.FC<FiltersPropsType> = (props) => {
             </div>
             <div className={styles.filterBlock}>
                 <h4>Фильтровать</h4>
-                <label htmlFor="filter4"><input type="checkbox"
-                                                id={'filter4'}
-                                                onClick={() => props.filterByStopsCountHandler(1)}/> - 1
+                <label htmlFor="0"><input type="checkbox"
+                                          id={'0'}
+                                          checked={props.stopsCount.some(i => i === 1)}
+                                          onChange={() => props.filterByStopsCountHandler(1)}/> - 1
                     пересадка</label>
-                <label htmlFor="filter5"><input type="checkbox"
-                                                id={'filter5'}
-                                                onClick={() => props.filterByStopsCountHandler(0)}/> - без
+                <label htmlFor="1"><input type="checkbox"
+                                          id={'1'}
+                                          checked={props.stopsCount.some(i => i === 0)}
+                                          onChange={() => props.filterByStopsCountHandler(0)}/> - без
                     пересадок</label>
             </div>
             <div className={styles.filterBlock}>
