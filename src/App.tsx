@@ -34,7 +34,10 @@ export type CurrentSortType = 'priceAscending' | 'priceDescending' | 'travelTime
 function App() {
 
     const [flights, setFlights] = useState<Array<FlightsType>>([]);
-    const [airlines, setAirlines] = useState<Array<string>>([]);
+
+    let airLinesNames = useMemo(() => getAirlinesNames(flights), [flights]);
+
+    const [airlines, setAirlines] = useState<Array<string>>(airLinesNames);
 
     const [currentSort, setCurrentSort] = useState<CurrentSortType>('priceAscending');
     const [min, setMin] = useState<number>(0);
@@ -50,11 +53,11 @@ function App() {
         setAirlines(getAirlinesNames(flights));
     }, [])
 
-    let flightsItems = useMemo(() => flightsForRender.map(item => <Flight {...item} />), [flightsForRender])
+    let flightsItems = useMemo(() => flightsForRender.map(item => <Flight {...item} />), [flightsForRender]);
 
     useEffect(() => {
-        flights.length !== 0 && setFlightsForRender(getSortedFlights((getFilteredFlights(flights, stopsCount, min, max, [])), currentSort))
-    }, [stopsCount, currentSort, min, max])
+        flights.length !== 0 && setFlightsForRender(getSortedFlights((getFilteredFlights(flights, stopsCount, min, max, airlines)), currentSort))
+    }, [stopsCount, currentSort, min, max, airlines])
 
     console.log(flightsForRender)
 
@@ -78,7 +81,11 @@ function App() {
         }
     }
     const filterByCompanyNameHandler = (airLine: string) => {
-        setFlightsForRender(filterByCompanyName(flights, [airLine]));
+        if (airlines.some(a => a === airLine)) {
+            setAirlines(airlines.filter(a => a !== airLine))
+        } else {
+            setAirlines([...airlines, airLine])
+        }
     }
     const setLowPriceBorderHandler = (min: number) => {
         setMin(min);
@@ -104,14 +111,15 @@ function App() {
                          sortByTravelTimeHandler={sortByTravelTimeHandler}
                          filterByStopsCountHandler={filterByStopsCountHandler}
                          filterByCompanyName={filterByCompanyNameHandler}
-                         airlinesNames={airlines}
+                         airlinesNames={airLinesNames}
                          currentSort={currentSort}
                          onCurrentSortHandler={onCurrentSortHandler}
                          stopsCount={stopsCount}
                          min={min}
                          max={max}
                          setLowPriceBorderHandler={setLowPriceBorderHandler}
-                         setHighPriceBorderHandler={setHighPriceBorderHandler}/>
+                         setHighPriceBorderHandler={setHighPriceBorderHandler}
+                         airlines={airlines}/>
             </div>
             <div>
                 {flightsItems}

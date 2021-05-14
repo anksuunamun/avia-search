@@ -17,6 +17,7 @@ type FiltersPropsType = {
     max: number
     setHighPriceBorderHandler: (value: number) => void
     setLowPriceBorderHandler: (value: number) => void
+    airlines: string[]
 }
 
 const Filters: React.FC<FiltersPropsType> = (props) => {
@@ -26,8 +27,9 @@ const Filters: React.FC<FiltersPropsType> = (props) => {
         return (
             <label htmlFor={id} key={id}>
                 <input type="checkbox"
+                       checked={props.airlines.some(a => a === name)}
                        id={id}
-                       onClick={() => props.filterByCompanyName(name)}/> - {name}
+                       onChange={() => props.filterByCompanyName(name)}/> - {name}
             </label>
         )
     })
