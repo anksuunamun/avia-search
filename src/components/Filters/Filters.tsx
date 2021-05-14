@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './Filters.module.css';
+import {v1} from 'uuid';
+import {CurrentSortType} from '../../App';
 
 type FiltersPropsType = {
     sortByPriceDescendingHandler: () => void
@@ -49,6 +51,25 @@ const Filters: React.FC<FiltersPropsType> = (props) => {
             </div>
             <div className={styles.grayBlock}/>
         </div>
+    )
+}
+
+type SortFilterPropsType = {
+    id: string
+    onChange: () => void
+    text: string
+    currentSort: CurrentSortType
+}
+
+const SortFilter: React.FC<SortFilterPropsType> = ({id, onChange, text, currentSort}) => {
+    return (
+        <label htmlFor={id}>
+            <input type="radio"
+                   id={id}
+                   checked={currentSort === id}
+                   onChange={() => onChange()}/>
+            {text}
+        </label>
     )
 }
 
