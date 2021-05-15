@@ -9,11 +9,9 @@ const Segment: React.FC<FlightType> = (props) => {
         return <div>Loading...</div>
     }
 
-    let depDate = new Date(props.departureDate)
-    let depDateStr = `${depDate.getDate()} ${Intl.DateTimeFormat('ru', {month: 'short'}).format(depDate)} ${Intl.DateTimeFormat('ru', {weekday: 'short'}).format(depDate)}`
+    const depDate = useMemo(() => new Date(props.departureDate), [props.departureDate]);
 
-    let arrDate = new Date(props.arrivalDate)
-    let arrDateStr = `${arrDate.getDate()} ${Intl.DateTimeFormat('ru', {month: 'short'}).format(arrDate)} ${Intl.DateTimeFormat('ru', {weekday: 'short'}).format(arrDate)}`
+    const arrDate = useMemo(() => new Date(props.arrivalDate), [props.arrivalDate]);
 
     return (
         <div className={styles.segment}>
