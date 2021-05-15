@@ -3,10 +3,7 @@ import './App.css';
 import Flight from './components/Flights/Flight';
 import Filters from './components/Filters/Filters';
 import {getFlights} from './dal/flights';
-import {
-    getFilteredFlights, getSortedFlights,
-    sortByPriceAscending,
-} from './utils/sorts-and-filters';
+import {getFilteredFlights, getSortedFlights} from './utils/sorts-and-filters';
 import {getAirlinesNames} from './utils/helper-functions';
 
 export type FlightType = {
@@ -50,7 +47,7 @@ function App() {
     useEffect(() => {
         const flights = getFlights()
         setFlights(flights);
-        setFlightsForRender(sortByPriceAscending(getFilteredFlights(flights, stopsCount, min, max, [])));
+        setFlightsForRender(getSortedFlights(getFilteredFlights(flights, stopsCount, min, max, []), 'priceAscending'));
         setAirlines(getAirlinesNames(flights));
     }, [])
 
