@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import Segment from './Segment/Segment';
 import {FlightsType, FlightType} from '../../App';
 import styles from './Flight.module.css'
 
 
 const Flight: React.FC<FlightsType> = (props) => {
-    const segments = props.routes.map((item: FlightType) => <Segment {...item}/>)
+    const segments = useMemo(() => props.routes.map((item: FlightType) => <Segment {...item}/>), [props.routes])
 
     if (!props.routes) {
         return <div>Loading...</div>
