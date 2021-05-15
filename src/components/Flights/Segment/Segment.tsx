@@ -5,14 +5,14 @@ import {addZero, formatDuration, getFormattedDate} from '../../../utils/helper-f
 
 
 const Segment: React.FC<FlightType> = (props) => {
-    if (!props.departureCity) {
-        return <div>Loading...</div>
-    }
 
     const depDate = useMemo(() => new Date(props.departureDate), [props.departureDate]);
 
     const arrDate = useMemo(() => new Date(props.arrivalDate), [props.arrivalDate]);
 
+    if (!props.departureCity) {
+        return <div>Loading...</div>
+    }
     return (
         <div className={styles.segment}>
             <div className={styles.segment_header}>{props.departureCity.caption}, {props.departureAirport.caption}
