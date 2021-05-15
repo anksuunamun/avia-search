@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import styles from './Segment.module.css';
 import {FlightType} from '../../../App';
-import {addZero, formatDuration, getFormattedDate, getFormattedTime} from '../../../utils/helper-functions';
+import {formatDuration, getFormattedDate, getFormattedTime} from '../../../utils/helper-functions';
 
 
 const Segment: React.FC<FlightType> = (props) => {
