@@ -28,3 +28,7 @@ export const getAirlinesNames = (flights: Array<FlightsType>) => {
 export const getFormattedDate = (date: Date) => {
     return `${date.getDate()} ${Intl.DateTimeFormat('ru', {month: 'short'}).format(date)} ${Intl.DateTimeFormat('ru', {weekday: 'short'}).format(date)}`
 }
+
+export const getFormattedTime = (date: Date) => {
+    return `${addZero(date.getHours())}:${addZero(date.getMinutes())}`
+}

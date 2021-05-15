@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import styles from './Segment.module.css';
 import {FlightType} from '../../../App';
-import {addZero, formatDuration, getFormattedDate} from '../../../utils/helper-functions';
+import {addZero, formatDuration, getFormattedDate, getFormattedTime} from '../../../utils/helper-functions';
 
 
 const Segment: React.FC<FlightType> = (props) => {
@@ -22,13 +22,13 @@ const Segment: React.FC<FlightType> = (props) => {
             <div className={styles.greyLine}/>
             <div className={styles.segment_dates}>
                 <div>
-                    <span>{`${addZero(depDate.getHours())}:${addZero(depDate.getMinutes())}`} </span>
+                    <span>{getFormattedTime(depDate)} </span>
                     <span>{getFormattedDate(depDate)}</span>
                 </div>
                 <div>&#9719; {formatDuration(props.duration)}</div>
                 <div>
                     <span>{getFormattedDate(arrDate)} </span>
-                    <span>{`${addZero(new Date(props.arrivalDate).getHours())}:${addZero(new Date(props.arrivalDate).getMinutes())}`} </span>
+                    <span>{getFormattedTime(arrDate)} </span>
                 </div>
             </div>
             <div className={styles.segment_stops}>
