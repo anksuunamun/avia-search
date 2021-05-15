@@ -1,6 +1,6 @@
 import React from 'react';
 import Segment from './Segment/Segment';
-import {FlightsType, FlightType} from '../App';
+import {FlightsType, FlightType} from '../../App';
 import styles from './Flight.module.css'
 
 

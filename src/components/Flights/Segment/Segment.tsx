@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Segment.module.css';
-import {FlightType} from '../../App';
-import {addZero, formatDuration} from '../../utils/helper-functions';
+import {FlightType} from '../../../App';
+import {addZero, formatDuration} from '../../../utils/helper-functions';
 
 
 const Segment: React.FC<FlightType> = (props) => {

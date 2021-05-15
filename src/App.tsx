@@ -1,6 +1,6 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import './App.css';
-import Flight from './Flight/Flight';
+import Flight from './components/Flights/Flight';
 import Filters from './components/Filters/Filters';
 import {getFlights} from './dal/flights';
 import {
@@ -125,7 +125,11 @@ function App() {
             </div>
             <div>
                 {flightsItems}
+                <div className={'moreButton'}>
+                    <button>Показать еще</button>
+                </div>
             </div>
+
         </div>
     );
 }
