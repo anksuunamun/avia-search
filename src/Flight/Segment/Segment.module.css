@@ -38,10 +38,11 @@
 
 .segment_stops span {
     color: #fdb475;
+    min-width: 100px;
 }
 
 .boldGreyLine {
     height: 2px;
-    width: 320px;
+    width: 300px;
     background-color: lightgrey;
 }

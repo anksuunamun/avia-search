@@ -89,7 +89,7 @@ const Filters: React.FC<FiltersPropsType> = (props) => {
                 <h4>Авиакомпании</h4>
                 {airlinesFilters}
             </div>
-            <div className={styles.grayBlock}/>
+            <div className={`${styles.grayBlock} ${styles.grayBlockBot}`}/>
         </div>
     )
 }
